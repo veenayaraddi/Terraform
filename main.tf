@@ -1,3 +1,11 @@
+resource "aws_iam_user" "aws_cli_user" {
+  name = "aws_cli_user"
+}
+
+resource "aws_iam_user_policy_attachment" "user_policy_attachment" {
+  user       = aws_iam_user.aws_cli_user.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
 resource "aws_iam_role" "ec2_role" {
   name = "ec2_access_role"
 
@@ -33,12 +41,4 @@ resource "aws_iam_role_policy" "ec2_policy" {
       }
     ]
   })
-}
-resource "aws_iam_user" "aws_cli_user" {
-  name = "aws_cli_user"
-}
-
-resource "aws_iam_user_policy_attachment" "user_policy_attachment" {
-  user       = aws_iam_user.aws_cli_user.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
